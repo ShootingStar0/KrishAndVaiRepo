@@ -44,6 +44,20 @@ WITH SERDEPROPERTIES (
 ) LOCATION 's3://cs327e-fall2017-imdb/athena/principals/'
 TBLPROPERTIES ('has_encrypted_data'='false');
 
+
+CREATE EXTERNAL TABLE IF NOT EXISTS imdb.stars (
+  `person_id` string,
+  `title_id` string 
+)
+ROW FORMAT SERDE 'org.apache.hadoop.hive.serde2.lazy.LazySimpleSerDe'
+WITH SERDEPROPERTIES (
+  'serialization.format' = ',',
+  'field.delim' = ','
+) LOCATION 's3://cs327e-fall2017-imdb/athena/stars/'
+TBLPROPERTIES ('has_encrypted_data'='false');
+
+
+
 CREATE EXTERNAL TABLE IF NOT EXISTS imdb.title_basics (
   `title_id` string,
   `title_type` string,
